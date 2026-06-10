@@ -1,0 +1,514 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: 100dvh;
+}
+
+/* ==========================
+   HOME SCREEN
+========================== */
+
+#home {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #0a0c12 0%, #141824 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================
+   HOMEPAGE TITLE
+========================== */
+
+.home-title {
+    font-size: clamp(28px, 8vw, 48px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #a0a4b5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.5px;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ==========================
+   FLOATING MEMORY WORDS
+========================== */
+
+.memory-words {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.memory-word {
+    position: absolute;
+    color: #a0a4b5;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    white-space: nowrap;
+    opacity: 0;
+    animation: floatWord 20s ease-in-out infinite;
+    pointer-events: none;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.3px;
+}
+
+/* Support for Marathi text */
+.memory-word[lang="mr"] {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+@keyframes floatWord {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) rotate(0deg);
+    }
+
+    10% {
+        opacity: 0.15;
+    }
+
+    20% {
+        opacity: 0.28;
+    }
+
+    80% {
+        opacity: 0.28;
+    }
+
+    90% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) rotate(var(--rotate-end, 5deg));
+    }
+}
+
+/* Different animation speeds for variety */
+.memory-word:nth-child(odd) {
+    animation-duration: 18s;
+}
+
+.memory-word:nth-child(3n) {
+    animation-duration: 22s;
+}
+
+.memory-word:nth-child(5n+2) {
+    animation-duration: 15s;
+}
+
+.photo-stack {
+    position: relative;
+    width: min(75vw, 400px);
+    height: min(95vw, 520px);
+    max-width: 450px;
+    max-height: 600px;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.stack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    top: 0;
+    left: 0;
+}
+
+/* Stack positioning - fixed for MacBook */
+.stack1 {
+    transform: rotate(-6deg) translateY(0px);
+}
+
+.stack2 {
+    transform: rotate(4deg) translateX(12px) translateY(4px);
+}
+
+.stack3 {
+    transform: rotate(-2deg) translateX(24px) translateY(8px);
+}
+
+.start-text {
+    margin-top: 30px;
+    font-size: clamp(14px, 4vw, 18px);
+    opacity: 0.85;
+    letter-spacing: 1px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 10px 24px;
+    border-radius: 40px;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ==========================
+   VIEWER (STORY MODE)
+========================== */
+
+#viewer {
+    display: none;
+    width: 100%;
+    height: 100dvh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(12px, 4vh, 24px);
+    background: #0a0c10;
+    position: relative;
+}
+
+/* ==========================
+   BACK TO HOME BUTTON
+========================== */
+
+.back-home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 10px 18px;
+    border-radius: 30px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.back-home-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-2px);
+}
+
+.back-home-btn:active {
+    transform: translateX(-2px) scale(0.96);
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+    .back-home-btn {
+        top: 12px;
+        left: 12px;
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+}
+
+.photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+#storyImage {
+    width: min(88vw, 550px);
+    max-height: 62vh;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: all 0.25s ease;
+}
+
+/* ==========================
+   TYPOGRAPHY - PROPORTIONAL SCALING
+========================== */
+
+.year {
+    margin-top: clamp(16px, 3vh, 28px);
+    font-size: clamp(11px, 3vw, 14px);
+    color: #aaa;
+    letter-spacing: clamp(3px, 1.5vw, 5px);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.title {
+    margin-top: clamp(6px, 1.5vh, 12px);
+    font-size: clamp(20px, 6vw, 30px);
+    font-weight: 700;
+    text-align: center;
+    padding: 0 clamp(16px, 5vw, 32px);
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+
+.caption {
+    margin-top: clamp(8px, 2vh, 16px);
+    font-size: clamp(14px, 3.8vw, 18px);
+    text-align: center;
+    line-height: 1.5;
+    max-width: min(85vw, 700px);
+    min-height: clamp(50px, 12vh, 70px);
+    padding: 0 clamp(16px, 5vw, 32px);
+    color: #ccc;
+    font-weight: 400;
+}
+
+/* ==========================
+   DOTS NAVIGATION
+========================== */
+
+.dots {
+    position: absolute;
+    bottom: clamp(20px, 4vh, 40px);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 3vw, 14px);
+    z-index: 20;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 8px 16px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+}
+
+.dots::-webkit-scrollbar {
+    height: 3px;
+}
+
+.dots::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.dots::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.dot {
+    width: clamp(8px, 3vw, 12px);
+    height: clamp(8px, 3vw, 12px);
+    border-radius: 50%;
+    background: #4a4e5c;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.dot.active {
+    background: #ffffff;
+    transform: scale(1.4);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================
+   RESPONSIVE BREAKPOINTS
+========================== */
+
+/* Desktop / MacBook and large screens - REDUCED SIZE */
+@media (min-width: 1200px) {
+    .photo-stack {
+        width: 340px;
+        height: 420px;
+    }
+    
+    .stack1 {
+        transform: rotate(-5deg) translateY(0px);
+    }
+    
+    .stack2 {
+        transform: rotate(3deg) translateX(10px) translateY(3px);
+    }
+    
+    .stack3 {
+        transform: rotate(-1deg) translateX(20px) translateY(6px);
+    }
+
+    .home-title {
+        margin-bottom: 30px;
+        font-size: 52px;
+    }
+}
+
+/* Large desktops (optional even smaller) */
+@media (min-width: 1600px) {
+    .photo-stack {
+        width: 360px;
+        height: 440px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .photo-stack {
+        width: min(55vw, 380px);
+        height: min(70vw, 500px);
+    }
+
+    #storyImage {
+        width: min(70vw, 480px);
+        max-height: 58vh;
+    }
+
+    .home-title {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .photo-stack {
+        width: min(70vw, 340px);
+        height: min(88vw, 460px);
+    }
+
+    .title {
+        font-size: clamp(18px, 5.5vw, 24px);
+    }
+
+    .caption {
+        font-size: clamp(13px, 3.5vw, 16px);
+    }
+
+    .home-title {
+        margin-bottom: 30px;
+        font-size: clamp(24px, 7vw, 36px);
+    }
+}
+
+@media (max-width: 480px) {
+    .photo-stack {
+        width: min(80vw, 280px);
+        height: min(100vw, 380px);
+    }
+
+    .stack1 {
+        transform: rotate(-5deg) translateY(0px);
+    }
+
+    .stack2 {
+        transform: rotate(3deg) translateX(8px) translateY(2px);
+    }
+
+    .stack3 {
+        transform: rotate(-1deg) translateX(16px) translateY(5px);
+    }
+
+    #storyImage {
+        width: 90vw;
+        max-height: 52vh;
+        border-radius: 20px;
+    }
+
+    .year {
+        margin-top: 14px;
+    }
+
+    .title {
+        margin-top: 6px;
+    }
+
+    .dots {
+        gap: 10px;
+        padding: 6px 12px;
+    }
+
+    .home-title {
+        margin-bottom: 30px;
+        font-size: clamp(20px, 6vw, 28px);
+    }
+}
+
+@media (max-width: 380px) {
+    .photo-stack {
+        width: min(85vw, 260px);
+        height: min(110vw, 350px);
+    }
+
+    #storyImage {
+        max-height: 48vh;
+    }
+
+    .caption {
+        font-size: 13px;
+        line-height: 1.4;
+        min-height: 55px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .photo-stack {
+        width: min(45vw, 300px);
+        height: min(60vw, 380px);
+    }
+
+    #storyImage {
+        max-height: 48vh;
+        width: min(65vw, 450px);
+    }
+
+    .year {
+        margin-top: 8px;
+    }
+
+    .title {
+        font-size: 18px;
+        margin-top: 4px;
+    }
+
+    .caption {
+        font-size: 13px;
+        min-height: 40px;
+        margin-top: 6px;
+    }
+
+    .dots {
+        bottom: 12px;
+    }
+
+    .back-home-btn {
+        top: 8px;
+        left: 8px;
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+    .home-title {
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+}

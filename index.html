@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>My Sodel Journey</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- HOME SCREEN -->
+        <section id="home">
+            
+            <!-- Floating memory words container -->
+            <div class="memory-words"></div>
+
+            <!-- Homepage Title -->
+            <div class="home-title">My Sodel Journey</div>
+
+            <!-- Generated from journey.json -->
+            <div class="photo-stack"></div>
+
+            <div class="start-text">
+                Swipe Right &nbsp; 👉 
+            </div>
+
+        </section>
+
+        <!-- STORY SCREEN -->
+        <section id="viewer">
+
+            <!-- Back to Home Button -->
+            <div class="back-home-btn" id="backToHome">
+                ← Home
+            </div>
+
+            <div class="photo-container">
+                <img id="storyImage" alt="Journey memory">
+            </div>
+
+            <div id="year" class="year"></div>
+
+            <div id="title" class="title"></div>
+
+            <div id="caption" class="caption"></div>
+
+            <div id="dots" class="dots"></div>
+
+        </section>
+
+    </div>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
