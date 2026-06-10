@@ -5,11 +5,12 @@ let current = 0;
 // Memory words collection - Mix of English and Marathi words
 const memoryWordsList = ["भावा", "KB शेठ", "Abdul", "Samosa", "Kokan", "पश्चिम महाराष्ट्र", "Tapola",
     "शिंदे साहेब", "Villa", "Navi Mumbai", "मनपसंद",
-    "शिळफाटा", "संतूर पप्पा", "DMart", "वज्रमुठ", "Gossips", "Resign",
+    "शिळफाटा", "संतूर पप्पा", "DMart", "वज्रमुठ",
     "मटण", "Lunch Group", "Coffee Group", "Snacks", "हिशोब", "Biryani", "Shegaon", "Nashik",
     "खम्मा घणी सा", "Nexon", "Triumph", "FZ", "Marathi", "Bisleri Pani Puri", "Plans", "Chai",
-    "friendships", "teamwork", "deadlines", "celebrations", "growth",
-    "support", "releases", "retrospectives", "arguments", "knowledge sharing"
+    "friendships", "Teamwork", "Deadlines", "Celebrations", "Growth",
+    "Support", "Releases", "Retrospectives", "Arguments", "Knowledge Sharing", "पंतनगर पोलिस स्टेशन",
+    "Kurla", "Diva", "Appsec Tool", "Juice", "Temple", "Birthdays", "शेव भाजी", "Vidarbha"
 ];
 
 /* -----------------------------
