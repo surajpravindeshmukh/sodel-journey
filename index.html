@@ -4,61 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>My Sodel Journey</title>
-
+    <title>A Timeline of Memories</title>
     <link rel="stylesheet" href="css/style.css">
-
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
 
     <div class="container">
-
         <!-- HOME SCREEN -->
         <section id="home">
-            
             <!-- Floating memory words container -->
             <div class="memory-words"></div>
-
             <!-- Homepage Title -->
             <div class="home-title">My Sodel Journey</div>
-
             <!-- Generated from journey.json -->
             <div class="photo-stack"></div>
-
-            <div class="start-text">
-                Swipe Right &nbsp; 👉 
+            <div class="start-text" id="startJourneyBtn">
+                Start &nbsp; 👉
             </div>
-
         </section>
 
         <!-- STORY SCREEN -->
         <section id="viewer">
-
             <!-- Back to Home Button -->
             <div class="back-home-btn" id="backToHome">
-                ← Home
+                Home
             </div>
-
-            <div class="photo-container">
+            <div class="photo-container" id="photoContainer">
                 <img id="storyImage" alt="Journey memory">
             </div>
-
             <div id="year" class="year"></div>
-
             <div id="title" class="title"></div>
-
             <div id="caption" class="caption"></div>
-
             <div id="dots" class="dots"></div>
-
         </section>
+    </div>
 
+    <div id="galleryModal" class="gallery-modal">
+        <div class="gallery-backdrop"></div>
+        <div class="gallery-content">
+            <button id="galleryClose">✕</button>
+            <button id="galleryPrev">‹</button>
+            <img id="galleryImage">
+            <button id="galleryNext">›</button>
+            <div id="galleryCaption"></div>
+        </div>
+    </div>
+
+    <div id="captionModal" class="caption-modal">
+        <div class="caption-backdrop"></div>
+        <button id="captionClose">✕</button>
+        <div class="caption-content">
+            <div id="fullCaptionText"></div>
+        </div>
     </div>
 
     <script src="js/script.js"></script>
-
 </body>
 
 </html>

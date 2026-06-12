@@ -1,68 +1,31 @@
 [
     {
         "year": "1990",
-        "title": "सुरुवात | The Beginning",
-        "image": "https://picsum.photos/id/1015/800/1200",
-        "caption": "जिथे सगळं सुरु झालं | Where it all started — first steps into the world."
-    },
-    {
-        "year": "1992",
-        "title": "पहिली पावले | First Steps",
-        "image": "https://picsum.photos/id/20/800/1200",
-        "caption": "चालायला शिकताना | Learning to walk and explore the world around me."
-    },
-    {
-        "year": "1995",
-        "title": "बालपण | Childhood Adventures",
-        "image": "https://picsum.photos/id/30/800/1200",
-        "caption": "किल्ले, सायकली, उन्हाळी दिवस | Building forts, riding bikes, endless summer days."
-    },
-    {
-        "year": "2000",
-        "title": "शाळेचे दिवस | School Days",
-        "image": "https://picsum.photos/id/1025/800/1200",
-        "caption": "शिकणे, खेळणे, वाढणे | Learning, playing and growing. Endless curiosity."
-    },
-    {
-        "year": "2005",
-        "title": "किशोरवय | Teenage Years",
-        "image": "https://picsum.photos/id/104/800/1200",
-        "caption": "संगीत, मित्र, स्वतःचा मार्ग | Discovering music, friends, and my own path."
-    },
-    {
-        "year": "2010",
-        "title": "महाविद्यालयीन जीवन | College Life",
-        "image": "https://picsum.photos/id/1035/800/1200",
-        "caption": "मैत्री, रात्री, स्वप्न | Friendships, late nights, and chasing dreams."
-    },
-    {
-        "year": "2013",
-        "title": "परदेशवास | Study Abroad",
-        "image": "https://picsum.photos/id/15/800/1200",
-        "caption": "नवीन संस्कृती, नवीन दृष्टिकोन | Exploring new cultures and gaining perspective."
-    },
-    {
-        "year": "2015",
-        "title": "पहिली नोकरी | First Job",
-        "image": "https://picsum.photos/id/1045/800/1200",
-        "caption": "व्यावसायिक प्रवास सुरू | Professional journey begins — new challenges, big lessons."
-    },
-    {
-        "year": "2018",
-        "title": "सशक्त होणे | Growing Stronger",
-        "image": "https://picsum.photos/id/169/800/1200",
-        "caption": "कौशल्ये आणि नाती | Building skills and making meaningful connections."
-    },
-    {
-        "year": "2020",
-        "title": "नवीन क्षितिजे | New Horizons",
-        "image": "https://picsum.photos/id/106/800/1200",
-        "caption": "नवीन मार्ग, नवीन वाटचाल | Exploring creative paths and embracing change."
-    },
-    {
-        "year": "2023",
         "title": "आज | Today",
-        "image": "https://picsum.photos/id/1005/800/1200",
-        "caption": "प्रवासाबद्दल कृतज्ञता, उद्यासाठी उत्सुकता | Grateful for the journey, excited for what's next."
+        "caption": "Grateful for the journey, excited for what's next.",
+        "images": [
+            {
+                "image": "https://picsum.photos/id/1015/800/1200",
+                "caption": "Annual Meetup"
+            },
+            {
+                "image": "https://picsum.photos/id/1025/800/1200",
+                "caption": "Coffee Group"
+            },
+            {
+                "image": "https://picsum.photos/id/1035/800/1200",
+                "caption": "Release Celebration"
+            },
+            {
+                "image": "https://picsum.photos/id/1045/800/1200",
+                "caption": "Farewell Party"
+            }
+        ]
+    },
+    {
+        "year": "June 2025",
+        "title": "Mutton Nights",
+        "image": "/images/2025/mutton.jpg",
+        "caption": "An evening at Vikas's place with the Coffee Group - delicious mutton prepared by Rohit, the bhakris I brought, a few drinks, and endless conversations. Simple moments like these, filled with laughter and good company, are the ones we wish happened more often."
     }
 ]

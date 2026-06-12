@@ -1,16 +1,20 @@
 // Journey data array - will be populated ONLY from journey.json
 let journey = [];
 let current = 0;
+let currentGalleryImages = [];
+let currentGalleryIndex = 0;
+let isModalOpen = false;
 
 // Memory words collection - Mix of English and Marathi words
-const memoryWordsList = ["भावा", "KB शेठ", "Abdul", "Samosa", "Kokan", "पश्चिम महाराष्ट्र", "Tapola",
-    "शिंदे साहेब", "Villa", "Navi Mumbai", "मनपसंद",
-    "शिळफाटा", "संतूर पप्पा", "DMart", "वज्रमुठ",
-    "मटण", "Lunch Group", "Coffee Group", "Snacks", "हिशोब", "Biryani", "Shegaon", "Nashik",
-    "खम्मा घणी सा", "Nexon", "Triumph", "FZ", "Marathi", "Bisleri Pani Puri", "Plans", "Chai",
-    "friendships", "Teamwork", "Deadlines", "Celebrations", "Growth",
-    "Support", "Releases", "Retrospectives", "Arguments", "Knowledge Sharing", "पंतनगर पोलिस स्टेशन",
-    "Kurla", "Diva", "Appsec Tool", "Juice", "Temple", "Birthdays", "शेव भाजी", "Vidarbha"
+const memoryWordsList = [
+    "KB शेठ", "Samosa Scam", "Kokan", "वज्रमुठ", "शेव भाजी", "Appsec - Ek Tool",
+    "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Navi Mumbai", "Bisleri Pani Puri", "Nexon",
+    "Abdul", "Villa", "मनपसंद", "शिळफाटा", "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना",
+    "संतूर पप्पा", "DMart", "Lunch Group", "Birthdays",
+    "खम्मा घणी सा", "वेड्या मना", "उपवास", "साबुदाणा", "हापूस आंबा २२ ₹",
+    "4Y 3M", "मटण", "Coffee Group", "Snacks", "बैल",
+    "Shegaon Kachori", "Nashik", "Kurla", "Diva",
+    "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi"
 ];
 
 /* -----------------------------
@@ -21,12 +25,44 @@ $(document).ready(function () {
     // Generate floating words on home screen
     generateMemoryWords();
 
-    // Back to home button functionality
+    // Start button
+    $("#startJourneyBtn, .photo-stack").on("click", function () {
+        startJourney();
+    });
+
+    // Back to home
     $("#backToHome").on("click", function () {
         goBackToHome();
     });
 
-    // Load journey data from JSON
+    /* -----------------------------
+       GALLERY EVENTS
+    ------------------------------*/
+    $(document).on("click", ".gallery-stack-image", function () {
+        const slideIndex = $(this).data("slide");
+        const imageIndex = $(this).data("image");
+        openGallery(journey[slideIndex].images, imageIndex);
+    });
+
+    $("#galleryClose").on("click", function () {
+        closeGallery();
+    });
+
+    $(".gallery-backdrop").on("click", function () {
+        closeGallery();
+    });
+
+    $("#galleryNext").on("click", function () {
+        nextGallery();
+    });
+
+    $("#galleryPrev").on("click", function () {
+        previousGallery();
+    });
+
+    /* -----------------------------
+       LOAD JOURNEY JSON
+    ------------------------------*/
     $.getJSON("js/journey.json")
         .done(function (data) {
             if (data && data.length > 0) {
@@ -41,6 +77,34 @@ $(document).ready(function () {
             console.error("Failed to load journey.json", error);
             showError("Unable to load journey.json. Please make sure the file exists at: js/journey.json");
         });
+
+    $("#caption").on("click", function () {
+        const fullCaption = journey[current]?.caption;
+        if (!fullCaption) return;
+        openCaptionModal();
+    });
+
+    $("#captionClose").on("click", function () {
+        closeCaptionModal();
+    });
+
+    $(".caption-backdrop").on("click", function () {
+        closeCaptionModal();
+    });
+
+    $("#captionModal").on(
+        "touchstart touchmove touchend",
+        function (e) {
+            e.stopPropagation();
+        }
+    );
+
+    $("#captionModal").on(
+        "mousedown mousemove mouseup",
+        function (e) {
+            e.stopPropagation();
+        }
+    );
 });
 
 /* -----------------------------
@@ -89,7 +153,6 @@ function initializeApp() {
 /* -----------------------------
    FLOATING MEMORY WORDS
 ------------------------------*/
-
 function generateMemoryWords() {
     const container = $(".memory-words");
     container.empty();
@@ -130,13 +193,12 @@ function generateMemoryWords() {
 /* -----------------------------
    HOME SCREEN STACK
 ------------------------------*/
-
 function buildHomeStack() {
     const stackImages = journey.slice(0, 3);
     let html = "";
 
     stackImages.forEach((item, index) => {
-        const safeImage = item.image || "https://picsum.photos/800/1200?random=" + index;
+        const safeImage = item.image || item.images?.[0]?.image || "https://picsum.photos/800/1200?random=" + index;
         html += `
             <img
                 src="${safeImage}"
@@ -153,7 +215,6 @@ function buildHomeStack() {
 /* -----------------------------
    CREATE DOTS - LIMITED TO 5 VISIBLE
 ------------------------------*/
-
 function createDots() {
     const totalDots = journey.length;
     const maxVisible = 5;
@@ -224,23 +285,51 @@ function scrollDotsToActive() {
 /* -----------------------------
    LOAD SLIDE
 ------------------------------*/
-
 function loadSlide(index) {
     if (!journey[index]) return;
-    const item = journey[index];
 
-    const $img = $("#storyImage");
-    $img.css("opacity", "0.5");
-    setTimeout(() => {
-        $img.attr("src", item.image);
-        $img.on("load", function () {
-            $img.css("opacity", "1");
-        });
-    }, 50);
+    const item = journey[index];
 
     $("#year").text(item.year || "");
     $("#title").text(item.title || "");
-    $("#caption").text(item.caption || "");
+
+    const fullCaption = item.caption || "";
+    const shortCaption = getShortCaption(fullCaption, 10);
+
+    $("#caption")
+        .text(shortCaption)
+        .css("cursor", fullCaption !== shortCaption ? "pointer" : "default");
+
+    const container = $("#photoContainer");
+
+    // MULTI IMAGE SLIDE
+    if (item.images && item.images.length > 0) {
+        let stackHtml = `<div class="gallery-stack">`;
+
+        item.images.forEach((img, idx) => {
+            stackHtml += `
+                <img
+                    src="${img.image}"
+                    class="gallery-stack-image gallery-stack-${idx + 1}"
+                    data-slide="${index}"
+                    data-image="${idx}"
+                >
+            `;
+        });
+
+        stackHtml += `</div>`;
+        container.html(stackHtml);
+    }
+    // SINGLE IMAGE SLIDE
+    else {
+        container.html(`
+            <img
+                id="storyImage"
+                src="${item.image}"
+                alt="${item.title}"
+            >
+        `);
+    }
 
     createDots();
     preloadAdjacentImages();
@@ -249,7 +338,6 @@ function loadSlide(index) {
 /* -----------------------------
    START JOURNEY
 ------------------------------*/
-
 function startJourney() {
     if (journey.length === 0) return;
     current = 0;
@@ -263,7 +351,6 @@ function startJourney() {
 /* -----------------------------
    NEXT / PREVIOUS
 ------------------------------*/
-
 function nextSlide() {
     if (current < journey.length - 1) {
         current++;
@@ -284,13 +371,22 @@ function previousSlide() {
 /* -----------------------------
    PRELOAD IMAGES
 ------------------------------*/
-
 function preloadAdjacentImages() {
     const preloadIndices = [current + 1, current + 2, current - 1];
+
     preloadIndices.forEach(idx => {
-        if (journey[idx] && journey[idx].image) {
+        if (!journey[idx]) return;
+
+        if (journey[idx].image) {
             const img = new Image();
             img.src = journey[idx].image;
+        }
+
+        if (journey[idx].images) {
+            journey[idx].images.forEach(imageObj => {
+                const img = new Image();
+                img.src = imageObj.image;
+            });
         }
     });
 }
@@ -298,7 +394,6 @@ function preloadAdjacentImages() {
 /* -----------------------------
    TOUCH SWIPE
 ------------------------------*/
-
 let touchStartX = 0;
 let touchEndX = 0;
 let touchStartY = 0;
@@ -321,18 +416,27 @@ document.addEventListener("touchend", function (e) {
 });
 
 function handleSwipe() {
-    const distance = touchEndX - touchStartX;
+    if (isModalOpen) {
+        return;
+    }
 
-    // HOME SCREEN swipe detection
-    if ($("#home").is(":visible") && $("#home").css("display") !== "none") {
+    if ($("#captionModal").is(":visible")) {
+        return;
+    }
+
+    if ($("#galleryModal").is(":visible")) {
+        const distance = touchEndX - touchStartX;
+        if (distance < -45) {
+            nextGallery();
+        }
         if (distance > 45) {
-            startJourney();
+            previousGallery();
         }
         return;
     }
 
-    // STORY SCREEN swipe: right = previous, left = next
     if ($("#viewer").is(":visible")) {
+        const distance = touchEndX - touchStartX;
         if (distance < -45) {
             nextSlide();
         }
@@ -345,7 +449,6 @@ function handleSwipe() {
 /* -----------------------------
    MOUSE DRAG (Desktop)
 ------------------------------*/
-
 let mouseStartX = 0;
 let isMouseDown = false;
 
@@ -355,42 +458,65 @@ $("body").on("mousedown", function (e) {
 });
 
 $("body").on("mouseup", function (e) {
+    if (isModalOpen) {
+        return;
+    }
+
     if (!isMouseDown) return;
     isMouseDown = false;
-    const mouseEndX = e.clientX;
-    const delta = mouseEndX - mouseStartX;
+    const delta = e.clientX - mouseStartX;
 
     if (Math.abs(delta) < 40) return;
 
     if ($("#home").is(":visible")) {
-        if (delta > 40) startJourney();
+        return;
+    }
+
+    if ($("#galleryModal").is(":visible")) {
         return;
     }
 
     if ($("#viewer").is(":visible")) {
-        if (delta < -40) nextSlide();
-        if (delta > 40) previousSlide();
+        if (delta < -40) {
+            nextSlide();
+        }
+        if (delta > 40) {
+            previousSlide();
+        }
     }
 });
 
 /* -----------------------------
    KEYBOARD SUPPORT
 ------------------------------*/
-
 $(document).on("keydown", function (e) {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-    }
-
-    // HOME SCREEN controls
-    if ($("#home").is(":visible")) {
-        if (e.key === "ArrowRight" || e.key === "Enter" || e.key === " ") {
-            startJourney();
+    if ($("#captionModal").is(":visible")) {
+        if (e.key === "Escape") {
+            closeCaptionModal();
         }
         return;
     }
 
-    // VIEWER controls
+    // GALLERY MODE
+    if ($("#galleryModal").is(":visible")) {
+        if (e.key === "Escape") {
+            closeGallery();
+        }
+        if (e.key === "ArrowRight") {
+            nextGallery();
+        }
+        if (e.key === "ArrowLeft") {
+            previousGallery();
+        }
+        return;
+    }
+
+    // HOME SCREEN
+    if ($("#home").is(":visible")) {
+        return;
+    }
+
+    // VIEWER SCREEN
     if ($("#viewer").is(":visible")) {
         if (e.key === "ArrowRight") {
             nextSlide();
@@ -398,9 +524,65 @@ $(document).on("keydown", function (e) {
         if (e.key === "ArrowLeft") {
             previousSlide();
         }
-        // ESC key to go back to home
         if (e.key === "Escape") {
             goBackToHome();
         }
     }
 });
+
+function openGallery(images, index) {
+    currentGalleryImages = images;
+    currentGalleryIndex = index;
+    updateGallery();
+    $("#galleryModal").fadeIn(200);
+}
+
+function updateGallery() {
+    const image = currentGalleryImages[currentGalleryIndex];
+    $("#galleryImage").attr("src", image.image);
+    $("#galleryCaption").text(image.caption || "");
+}
+
+function closeGallery() {
+    $("#galleryModal").fadeOut(200);
+}
+
+function nextGallery() {
+    currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+    updateGallery();
+}
+
+function previousGallery() {
+    currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+    updateGallery();
+}
+
+function getShortCaption(text, maxWords = 50) {
+    if (!text) return "";
+    const words = text.trim().split(/\s+/);
+    if (words.length <= maxWords) {
+        return text;
+    }
+    return words.slice(0, maxWords).join(" ") + "...";
+}
+
+function openCaptionModal() {
+    $("#fullCaptionText").text($("#caption").text());
+    $("#captionModal").fadeIn(200);
+}
+
+function closeCaptionModal() {
+    $("#captionModal").fadeOut(200);
+}
+
+function openCaptionModal() {
+    const fullCaption = journey[current]?.caption || "";
+    $("#fullCaptionText").text(fullCaption);
+    isModalOpen = true;
+    $("#captionModal").fadeIn(200);
+}
+
+function closeCaptionModal() {
+    isModalOpen = false;
+    $("#captionModal").fadeOut(200);
+}
