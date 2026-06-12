@@ -25,7 +25,7 @@
     {
         "year": "June 2025",
         "title": "Mutton Nights",
-        "image": "images/2025/mutton.jpg",
+        "image": "./images/2025/mutton.jpg",
         "caption": "An evening at Vikas's place with the Coffee Group - delicious mutton prepared by Rohit, the bhakris I brought, a few drinks, and endless conversations. Simple moments like these, filled with laughter and good company, are the ones we wish happened more often."
     }
 ]
