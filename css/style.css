@@ -108,9 +108,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv
 
 .gallery-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px); }
 
-.gallery-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; text-align: center; }
+.gallery-content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
 
-#galleryImage { max-width: 100%; max-height: 75vh; border-radius: 16px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+#galleryImage { max-width: 95vw; max-height: 80vh; width: auto; height: auto; object-fit: contain; border-radius: 16px; display: block; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
 
 #galleryCaption { margin-top: 20px; color: white; font-size: 16px; opacity: 0.9; }
 
@@ -191,7 +191,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv
     .dots { gap: 10px; padding: 6px 12px; }
     .home-title { margin-bottom: 30px; font-size: clamp(20px, 6vw, 28px); }
     .gallery-stack { width: min(85vw, 260px); height: min(105vw, 340px); }
-    #galleryClose { top: -45px; right: -5px; width: 38px; height: 38px; font-size: 20px; }
+    #galleryClose { top: max(12px, env(safe-area-inset-top)); right: 12px; width: 38px; height: 38px; font-size: 20px; }
     #galleryPrev, #galleryNext { width: 38px; height: 38px; font-size: 20px; }
     #galleryPrev { left: -45px; }
     #galleryNext { right: -45px; }
@@ -244,3 +244,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv
     #captionClose { width: 36px; height: 36px; font-size: 20px; top: 10px; right: 10px; }
     .caption-content { padding: 18px; }
 }
+
+.page-loader { position: fixed; inset: 0; background: #0a0c12; display: flex; justify-content: center; align-items: center; z-index: 99999; }
+
+.loader-dots { display: flex; gap: 10px; }
+
+.loader-dots span { width: 12px; height: 12px; border-radius: 50%; background: white; animation: dotBounce 1.2s infinite ease-in-out; }
+
+.loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+
+.loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotBounce { 0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }

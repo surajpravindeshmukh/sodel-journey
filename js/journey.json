@@ -1,24 +1,31 @@
 [
     {
-        "year": "1990",
-        "title": "आज | Today",
-        "caption": "Grateful for the journey, excited for what's next.",
+        "year": "2022",
+        "title": "New Beginnings",
+        "caption": "I joined Sodel in May 2022. Within a couple of months, we moved into a rented co-sharing workplace as the office was getting renovated. And when we finally returned in Nov, the place looked absolutely amazing! A fresh start with a fresh vibe.",
         "images": [
             {
-                "image": "https://picsum.photos/id/1015/800/1200",
-                "caption": "Annual Meetup"
+                "image": "./images/2022/sodel.jpg",
+                "caption": "The stunning new interior."
             },
             {
-                "image": "https://picsum.photos/id/1025/800/1200",
-                "caption": "Coffee Group"
+                "image": "./images/2022/sodel1.jpg",
+                "caption": "..and here's the lunch plate that made the renovation even better!"
+            }
+        ]
+    },
+    {
+        "year": "2023",
+        "title": "वज्रमूठ",
+        "caption": "Taking inspiration from the Shiv Sena, NCP and Congress 'Vajramuth' alliance, Sodel's very own Vajramuth came into existence with Kiran Bavdane, Rohan Dubey, and Ajay Shelar. Unlike its political counterpart, this alliance was built on friendship, fun, and plenty of office banter.",
+        "images": [
+            {
+                "image": "./images/2023/vajramuth.png",
+                "caption": "1. Rohan and Ajay convincing Kiran to be part of the gang."
             },
             {
-                "image": "https://picsum.photos/id/1035/800/1200",
-                "caption": "Release Celebration"
-            },
-            {
-                "image": "https://picsum.photos/id/1045/800/1200",
-                "caption": "Farewell Party"
+                "image": "./images/2023/vajramuth1.png",
+                "caption": "2. Finally, the Vajramuth is formed! Didn't last long though."
             }
         ]
     },

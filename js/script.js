@@ -7,7 +7,7 @@ let isModalOpen = false;
 
 // Memory words collection - Mix of English and Marathi words
 const memoryWordsList = [
-    "KB शेठ", "Samosa Scam", "Kokan", "वज्रमुठ", "शेव भाजी", "Appsec - Ek Tool",
+    "KB शेठ", "Samosa Scam", "Kokan", "वज्रमूठ", "शेव भाजी", "Appsec - Ek Tool",
     "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Navi Mumbai", "Bisleri Pani Puri", "Nexon",
     "Abdul", "Villa", "मनपसंद", "शिळफाटा", "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना",
     "संतूर पप्पा", "DMart", "Lunch Group", "Birthdays",
@@ -138,16 +138,43 @@ function showError(message) {
     $(".start-text").hide();
 }
 
+function preloadImages(imageUrls) {
+    return Promise.all(
+        imageUrls.map(src => {
+            return new Promise(resolve => {
+                const img = new Image();
+
+                img.onload = resolve;
+                img.onerror = resolve;
+
+                img.src = src;
+            });
+        })
+    );
+}
+
 function initializeApp() {
     if (!journey.length) {
         console.error("No journey data available");
         showError("No journey data found in journey.json");
         return;
     }
+
     console.log(`🎉 Initializing app with ${journey.length} journey items`);
-    buildHomeStack();
-    createDots();
-    loadSlide(0);
+
+    const imageUrls = journey
+        .slice(0, 3)
+        .reverse()
+        .map(item => item.image || item.images?.[0]?.image)
+        .filter(Boolean);
+
+    preloadImages(imageUrls).then(() => {
+        $("#pageLoader").fadeOut(300);
+
+        buildHomeStack();
+        createDots();
+        loadSlide(0);
+    });
 }
 
 /* -----------------------------
@@ -190,15 +217,16 @@ function generateMemoryWords() {
     });
 }
 
-/* -----------------------------
-   HOME SCREEN STACK
-------------------------------*/
 function buildHomeStack() {
-    const stackImages = journey.slice(0, 3);
+    const stackImages = journey.slice(0, 3).reverse();
     let html = "";
 
     stackImages.forEach((item, index) => {
-        const safeImage = item.image || item.images?.[0]?.image || "https://picsum.photos/800/1200?random=" + index;
+        const safeImage =
+            item.image ||
+            item.images?.[0]?.image ||
+            `https://picsum.photos/800/1200?random=${index}`;
+
         html += `
             <img
                 src="${safeImage}"
