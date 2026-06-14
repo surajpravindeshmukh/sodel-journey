@@ -7,14 +7,15 @@ let isModalOpen = false;
 
 // Memory words collection - Mix of English and Marathi words
 const memoryWordsList = [
-    "KB शेठ", "Samosa Scam", "Kokan", "वज्रमूठ", "शेव भाजी", "Appsec - Ek Tool",
-    "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Navi Mumbai", "Bisleri Pani Puri", "Nexon",
+    "KB शेठ", "Samosa Scam", "Kokan Paglu", "Ratnagiri", "वज्रमूठ", "शेव भाजी",
+    "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Ganesh Naik", "Navi Mumbai Paglu", "Bisleri Pani Puri", "Nexon",
     "Abdul", "Villa", "मनपसंद", "शिळफाटा", "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना",
-    "संतूर पप्पा", "DMart", "Lunch Group", "Birthdays",
-    "खम्मा घणी सा", "वेड्या मना", "उपवास", "साबुदाणा", "हापूस आंबा २२ ₹",
-    "4Y 3M", "मटण", "Coffee Group", "Snacks", "बैल",
-    "Shegaon Kachori", "Nashik", "Kurla", "Diva",
-    "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi"
+    "संतूर पप्पा", "DMart", "Lunch Group", "Birthdays on Terrace", "Old Monk", "Paan Flavour",
+    "खम्मा घणी सा", "वेड्या मना", "उपवास", "साबुदाणा", "हापूस आंबा २२ ₹", "Chicken Thali",
+    "4Y 3M", "मटण", "Coffee Group", "Snacks", "बैल", "साचा", "IRCTC paglu",
+    "Shegaon Kachori", "Nashik", "Kurla", "Diva", "Guna - Natrang",
+    "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi", "FZ - 35000",
+    "Appsec - Ek Tool", "Muft Ka Chandan", "5 Lakh", "CNG Ninja", "Neele Neele Ambar Par"
 ];
 
 /* -----------------------------
@@ -184,37 +185,60 @@ function generateMemoryWords() {
     const container = $(".memory-words");
     container.empty();
 
-    const wordCount = Math.floor(Math.random() * 20) + 30;
     const shuffledWords = [...memoryWordsList].sort(() => 0.5 - Math.random());
-    const selectedWords = shuffledWords.slice(0, wordCount);
 
-    selectedWords.forEach((word) => {
-        const top = Math.random() * 90 + 5;
-        const left = Math.random() * 85 + 7.5;
-        const fontSize = Math.floor(Math.random() * 24) + 12;
-        const rotation = (Math.random() - 0.5) * 16;
-        const animationDelay = Math.random() * 14;
-        const opacity = Math.random() * 0.3 + 0.1;
-        const animDuration = Math.floor(Math.random() * 15) + 16;
-        const isMarathi = /[\u0900-\u097F]/.test(word);
+    const cols = 5;
+    const rows = 8;
 
-        const wordElement = $(`
-            <div class="memory-word" ${isMarathi ? 'lang="mr"' : ''} style="
-                top: ${top}%;
-                left: ${left}%;
-                font-size: ${fontSize}px;
-                transform: rotate(${rotation}deg);
-                animation-delay: ${animationDelay}s;
-                animation-duration: ${animDuration}s;
-                opacity: ${opacity};
-                --rotate-end: ${rotation + (Math.random() - 0.5) * 10}deg;
-            ">
-                ${word}
-            </div>
-        `);
+    let index = 0;
 
-        container.append(wordElement);
-    });
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            if (index >= shuffledWords.length) break;
+
+            const word = shuffledWords[index++];
+
+            const cellWidth = 100 / cols;
+            const cellHeight = 100 / rows;
+
+            let left =
+                col * cellWidth +
+                Math.random() * (cellWidth * 0.6);
+
+            // Allow words in first column to overflow off-screen
+            if (col === 0) {
+                left -= Math.random() * 15;
+            }
+
+            const top =
+                row * cellHeight +
+                Math.random() * (cellHeight * 0.6);
+
+            const fontSize = Math.floor(Math.random() * 24) + 12;
+            const rotation = (Math.random() - 0.5) * 16;
+            const opacity = Math.random() * 0.3 + 0.1;
+            const animDuration = Math.floor(Math.random() * 15) + 16;
+            const animationDelay = Math.random() * 14;
+            const isMarathi = /[\u0900-\u097F]/.test(word);
+
+            const wordElement = $(`
+                <div class="memory-word" ${isMarathi ? 'lang="mr"' : ''} style="
+                    top:${top}%;
+                    left:${left}%;
+                    font-size:${fontSize}px;
+                    transform:rotate(${rotation}deg);
+                    animation-delay:${animationDelay}s;
+                    animation-duration:${animDuration}s;
+                    opacity:${opacity};
+                    --rotate-end:${rotation + (Math.random() - 0.5) * 10}deg;
+                ">
+                    ${word}
+                </div>
+            `);
+
+            container.append(wordElement);
+        }
+    }
 }
 
 function buildHomeStack() {
