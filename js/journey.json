@@ -25,7 +25,7 @@
             },
             {
                 "image": "./images/2023/vajramuth1.png",
-                "caption": "2. Finally, the Vajramuth is formed! Didn't last long though."
+                "caption": "2. Finally, the Vajramuth was formed!"
             }
         ]
     },
@@ -34,5 +34,74 @@
         "title": "Mutton Nights",
         "image": "./images/2025/mutton.jpg",
         "caption": "An evening at Vikas's place with the Coffee Group - delicious mutton prepared by Rohit, the bhakris I brought, a few drinks, and endless conversations. Simple moments like these, filled with laughter and good company, are the ones we wish happened more often."
+    },
+    {
+        "year": "2025 - 2026",
+        "title": "Trips | Years in the Making",
+        "caption": "Years of just saying 'we should go on a trip'. Finally did it! Started with Ajay's village in Lakhwad near Tapola. My White Nexon + Ajay's Black Nexon. Serene, memorable, and the beginning of many more trips!",
+        "images": [
+            {
+                "image": "./images/2025/trip.jpg",
+                "caption": "1. White & Black Nexon - the duo is out!"
+            },
+            {
+                "image": "./images/2025/trip1.jpg",
+                "caption": "2. The BOYS - somewhere in Poladpur, past midnight."
+            },
+            {
+                "image": "./images/2026/trip2.jpg",
+                "caption": "3. The previous trip to Lakhwad taught us we can survive together, so we went for a villa this time."
+            },
+            {
+                "image": "./images/2026/trip3.jpg",
+                "caption": "4. Villa plan upgraded! The ladies joined the gang and brought in some reels, laughter, and whole lot of fun!"
+            }
+        ]
+    },
+    {
+        "year": "2022 - 2025",
+        "title": "Celebrations",
+        "caption": "Every celebration was a memory in the making. And we made plenty!",
+        "images": [
+            {
+                "image": "./images/2024/celebrations.jpg",
+                "caption": "Saffron, white & green - we nailed the theme!"
+            },
+            {
+                "image": "./images/2024/celebrations1.jpg",
+                "caption": "White squad looking sharp!"
+            }
+        ]
+    },
+    {
+        "year": "2022 - 2025",
+        "title": "Birthdays",
+        "caption": "Birthdays on the terrace became our ritual from 2022 to 2025. But as the global economic crisis hit at the end of 2025, we had to end this beautiful tradition. Gone but never forgotten.",
+        "images": [
+            {
+                "image": "./images/2025/birthdays.jpg",
+                "caption": "1. The cake brought by our YPP team every year, without fail. The one for me, Raju and Swapnil will be missed."
+            },
+            {
+                "image": "./images/2025/birthdays1.jpg",
+                "caption": "2. Vikas Dhere."
+            },
+            {
+                "image": "./images/2025/birthdays2.jpg",
+                "caption": "3. Rohan Dubey, Kiran Bavdane."
+            },
+            {
+                "image": "./images/2025/birthdays3.jpg",
+                "caption": "4. Bhushan Patil."
+            },
+            {
+                "image": "./images/2025/birthdays4.jpg",
+                "caption": "5. Chandan Kolhe."
+            },
+            {
+                "image": "./images/2025/birthdays5.jpg",
+                "caption": "6. Jitendra Barai."
+            }
+        ]
     }
 ]

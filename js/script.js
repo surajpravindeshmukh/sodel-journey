@@ -11,11 +11,11 @@ const memoryWordsList = [
     "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Ganesh Naik", "Navi Mumbai Paglu", "Bisleri Pani Puri", "Nexon",
     "Abdul", "Villa", "मनपसंद", "शिळफाटा", "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना",
     "संतूर पप्पा", "DMart", "Lunch Group", "Birthdays on Terrace", "Old Monk", "Paan Flavour",
-    "खम्मा घणी सा", "वेड्या मना", "उपवास", "साबुदाणा", "हापूस आंबा २२ ₹", "Chicken Thali",
+    "खम्मा घणी सा", "वेड्या मना", "उपवास", "साबुदाणा", "हापूस आंबा २२₹", "Chicken Thali",
     "4Y 3M", "मटण", "Coffee Group", "Snacks", "बैल", "साचा", "IRCTC paglu",
-    "Shegaon Kachori", "Nashik", "Kurla", "Diva", "Guna - Natrang",
-    "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi", "FZ - 35000",
-    "Appsec - Ek Tool", "Muft Ka Chandan", "5 Lakh", "CNG Ninja", "Neele Neele Ambar Par"
+    "Shegaon Kachori", "Nashik", "Kurla", "Guna",
+    "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi", "FZ - 35000₹",
+    "Appsec - Ek Tool", "Muft Ka Chandan", "CNG Ninja", "Neele Neele Ambar Par"
 ];
 
 /* -----------------------------
