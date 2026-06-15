@@ -205,3 +205,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv
 .rotate-title { font-size:24px; font-weight:700; margin-bottom:12px; }
 .rotate-text { font-size:16px; color:#bbb; line-height:1.5; }
 @keyframes rotatePhone { 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(90deg);} }
+
+/* Swipe animation for slide transitions */
+.slide-transition { transition: transform 0.3s ease-out, opacity 0.2s ease; }
+.slide-out-left { transform: translateX(-100%); opacity: 0; }
+.slide-out-right { transform: translateX(100%); opacity: 0; }
+.slide-in-left { transform: translateX(0); opacity: 1; }
+.slide-in-right { transform: translateX(0); opacity: 1; }
+#photoContainer { overflow: hidden; position: relative; width: 100%; display: flex; justify-content: center; align-items: center; }
+#photoContainer > * { transition: transform 0.3s ease, opacity 0.25s ease; }
+
+/* Gallery image transition animation */
+#galleryImage { transition: transform 0.25s ease, opacity 0.2s ease; }
+.gallery-image-out-left { transform: translateX(-30px); opacity: 0; }
+.gallery-image-out-right { transform: translateX(30px); opacity: 0; }
+.gallery-image-in-left { transform: translateX(0); opacity: 1; }
+.gallery-image-in-right { transform: translateX(0); opacity: 1; }

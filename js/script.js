@@ -345,47 +345,25 @@ function scrollDotsToActive() {
 function loadSlide(index) {
     if (!journey[index]) return;
 
-    const item = journey[index];
+    $("#year").text(journey[index].year || "");
+    $("#title").text(journey[index].title || "");
 
-    $("#year").text(item.year || "");
-    $("#title").text(item.title || "");
-
-    const fullCaption = item.caption || "";
+    const fullCaption = journey[index].caption || "";
     const shortCaption = getShortCaption(fullCaption, 10);
-
-    $("#caption")
-        .text(shortCaption)
-        .css("cursor", fullCaption !== shortCaption ? "pointer" : "default");
+    $("#caption").text(shortCaption).css("cursor", fullCaption !== shortCaption ? "pointer" : "default");
 
     const container = $("#photoContainer");
+    container.css({ overflow: "hidden" });
 
-    // MULTI IMAGE SLIDE
-    if (item.images && item.images.length > 0) {
+    if (journey[index].images && journey[index].images.length > 0) {
         let stackHtml = `<div class="gallery-stack">`;
-
-        item.images.forEach((img, idx) => {
-            stackHtml += `
-                <img
-                    src="${img.image}"
-                    class="gallery-stack-image gallery-stack-${idx + 1}"
-                    data-slide="${index}"
-                    data-image="${idx}"
-                >
-            `;
+        journey[index].images.forEach((img, idx) => {
+            stackHtml += `<img src="${img.image}" class="gallery-stack-image gallery-stack-${idx + 1}" data-slide="${index}" data-image="${idx}">`;
         });
-
         stackHtml += `</div>`;
         container.html(stackHtml);
-    }
-    // SINGLE IMAGE SLIDE
-    else {
-        container.html(`
-            <img
-                id="storyImage"
-                src="${item.image}"
-                alt="${item.title}"
-            >
-        `);
+    } else {
+        container.html(`<img id="storyImage" src="${journey[index].image}" alt="${journey[index].title}">`);
     }
 
     createDots();
@@ -408,21 +386,87 @@ function startJourney() {
 /* -----------------------------
    NEXT / PREVIOUS
 ------------------------------*/
+let isAnimating = false;
+
 function nextSlide() {
-    if (current < journey.length - 1) {
-        current++;
-        loadSlide(current);
-    } else {
+    if (isAnimating) return;
+    if (current >= journey.length - 1) {
         $("#caption").css("transform", "scale(0.99)");
         setTimeout(() => $("#caption").css("transform", ""), 200);
+        return;
     }
+
+    isAnimating = true;
+    const $container = $("#photoContainer");
+    const $currentContent = $container.children();
+
+    // Animate current slide out to left
+    $currentContent.css({ transform: "translateX(-100%)", opacity: 0 });
+
+    setTimeout(() => {
+        current++;
+        loadSlideContent(current);
+        const $newContent = $container.children();
+        $newContent.css({ transform: "translateX(100%)", opacity: 0 });
+
+        setTimeout(() => {
+            $newContent.css({ transform: "translateX(0)", opacity: 1 });
+            setTimeout(() => { isAnimating = false; }, 300);
+        }, 50);
+    }, 250);
 }
 
 function previousSlide() {
-    if (current > 0) {
+    if (isAnimating) return;
+    if (current <= 0) return;
+
+    isAnimating = true;
+    const $container = $("#photoContainer");
+    const $currentContent = $container.children();
+
+    // Animate current slide out to right
+    $currentContent.css({ transform: "translateX(100%)", opacity: 0 });
+
+    setTimeout(() => {
         current--;
-        loadSlide(current);
+        loadSlideContent(current);
+        const $newContent = $container.children();
+        $newContent.css({ transform: "translateX(-100%)", opacity: 0 });
+
+        setTimeout(() => {
+            $newContent.css({ transform: "translateX(0)", opacity: 1 });
+            setTimeout(() => { isAnimating = false; }, 300);
+        }, 50);
+    }, 250);
+}
+
+// New function to load just the content without recreating dots
+function loadSlideContent(index) {
+    if (!journey[index]) return;
+    const item = journey[index];
+
+    $("#year").text(item.year || "");
+    $("#title").text(item.title || "");
+
+    const fullCaption = item.caption || "";
+    const shortCaption = getShortCaption(fullCaption, 10);
+    $("#caption").text(shortCaption).css("cursor", fullCaption !== shortCaption ? "pointer" : "default");
+
+    const container = $("#photoContainer");
+
+    if (item.images && item.images.length > 0) {
+        let stackHtml = `<div class="gallery-stack">`;
+        item.images.forEach((img, idx) => {
+            stackHtml += `<img src="${img.image}" class="gallery-stack-image gallery-stack-${idx + 1}" data-slide="${index}" data-image="${idx}">`;
+        });
+        stackHtml += `</div>`;
+        container.html(stackHtml);
+    } else {
+        container.html(`<img id="storyImage" src="${item.image}" alt="${item.title}">`);
     }
+
+    createDots();
+    preloadAdjacentImages();
 }
 
 /* -----------------------------
@@ -596,7 +640,11 @@ function openGallery(images, index) {
 
 function updateGallery() {
     const image = currentGalleryImages[currentGalleryIndex];
-    $("#galleryImage").attr("src", image.image);
+    const $img = $("#galleryImage");
+
+    // Reset animation state
+    $img.css({ transform: "translateX(0)", opacity: 1 });
+    $img.attr("src", image.image);
     $("#galleryCaption").text(image.caption || "");
 }
 
@@ -604,14 +652,62 @@ function closeGallery() {
     $("#galleryModal").fadeOut(200);
 }
 
+let isGalleryAnimating = false;
+
 function nextGallery() {
-    currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
-    updateGallery();
+    if (isGalleryAnimating) return;
+    if (!currentGalleryImages.length) return;
+    
+    isGalleryAnimating = true;
+    const $img = $("#galleryImage");
+    
+    // Animate current image out to left
+    $img.css({ transform: "translateX(-30px)", opacity: 0 });
+    
+    setTimeout(() => {
+        // Update to next image
+        currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+        const newImage = currentGalleryImages[currentGalleryIndex];
+        
+        // Set new image and start faded in from right
+        $img.attr("src", newImage.image);
+        $img.css({ transform: "translateX(30px)", opacity: 0 });
+        $("#galleryCaption").text(newImage.caption || "");
+        
+        setTimeout(() => {
+            // Animate new image in
+            $img.css({ transform: "translateX(0)", opacity: 1 });
+            setTimeout(() => { isGalleryAnimating = false; }, 250);
+        }, 50);
+    }, 200);
 }
 
 function previousGallery() {
-    currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
-    updateGallery();
+    if (isGalleryAnimating) return;
+    if (!currentGalleryImages.length) return;
+    
+    isGalleryAnimating = true;
+    const $img = $("#galleryImage");
+    
+    // Animate current image out to right
+    $img.css({ transform: "translateX(30px)", opacity: 0 });
+    
+    setTimeout(() => {
+        // Update to previous image
+        currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+        const newImage = currentGalleryImages[currentGalleryIndex];
+        
+        // Set new image and start faded in from left
+        $img.attr("src", newImage.image);
+        $img.css({ transform: "translateX(-30px)", opacity: 0 });
+        $("#galleryCaption").text(newImage.caption || "");
+        
+        setTimeout(() => {
+            // Animate new image in
+            $img.css({ transform: "translateX(0)", opacity: 1 });
+            setTimeout(() => { isGalleryAnimating = false; }, 250);
+        }, 50);
+    }, 200);
 }
 
 function getShortCaption(text, maxWords = 50) {
