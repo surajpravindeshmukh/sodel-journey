@@ -396,17 +396,18 @@ function loadSlide(index) {
 
     // MULTI IMAGE SLIDE
     if (item.images && item.images.length > 0) {
-        let stackHtml = `<div class="gallery-stack loading">`;
+        let stackHtml = `<div class="gallery-stack loading" style="opacity:0.6; pointer-events:none;">`;
 
         item.images.forEach((img, idx) => {
             stackHtml += `
-                <img
-                    src="${img.image}"
-                    class="gallery-stack-image gallery-stack-${idx + 1}"
-                    data-slide="${index}"
-                    data-image="${idx}"
-                >
-            `;
+            <img
+                src="${img.image}"
+                class="gallery-stack-image gallery-stack-${idx + 1}"
+                data-slide="${index}"
+                data-image="${idx}"
+                style="display:none;"
+            >
+        `;
         });
 
         stackHtml += `</div>`;
@@ -419,27 +420,40 @@ function loadSlide(index) {
 
         item.images.forEach((img, idx) => {
             const $img = $(`.gallery-stack-image[data-image="${idx}"]`);
+            const tempImg = new Image();
 
-            if ($img[0].complete && $img[0].naturalWidth !== 0) {
+            tempImg.onload = function () {
                 loadedCount++;
+                $img.attr("src", img.image).css("display", "block");
+
                 if (loadedCount === totalImages) {
-                    $stack.removeClass("loading");
+                    $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                    console.log("All images loaded!");
                 }
-            } else {
-                $img.on("load", function () {
-                    loadedCount++;
-                    if (loadedCount === totalImages) {
-                        $stack.removeClass("loading");
-                    }
-                }).on("error", function () {
-                    loadedCount++;
-                    if (loadedCount === totalImages) {
-                        $stack.removeClass("loading");
-                    }
-                });
-            }
+            };
+
+            tempImg.onerror = function () {
+                loadedCount++;
+                $img.attr("src", img.image).css("display", "block");
+
+                if (loadedCount === totalImages) {
+                    $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                    console.log("All images loaded (with errors)!");
+                }
+            };
+
+            tempImg.src = img.image;
         });
+
+        // Fallback timeout - remove loading after 5 seconds regardless
+        setTimeout(function () {
+            if ($stack.hasClass("loading")) {
+                $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                console.log("Fallback: removed loading state");
+            }
+        }, 5000);
     }
+
     // SINGLE IMAGE SLIDE
     else {
         container.html(`
@@ -540,12 +554,47 @@ function loadSlideContent(index) {
     const container = $("#photoContainer");
 
     if (item.images && item.images.length > 0) {
-        let stackHtml = `<div class="gallery-stack">`;
+        let stackHtml = `<div class="gallery-stack loading" style="opacity:0.6; pointer-events:none;">`;
+
         item.images.forEach((img, idx) => {
-            stackHtml += `<img src="${img.image}" class="gallery-stack-image gallery-stack-${idx + 1}" data-slide="${index}" data-image="${idx}">`;
+            stackHtml += `<img src="${img.image}" class="gallery-stack-image gallery-stack-${idx + 1}" data-slide="${index}" data-image="${idx}" style="display:none;">`;
         });
         stackHtml += `</div>`;
         container.html(stackHtml);
+
+        // Track loading for smooth transition too
+        let loadedCount = 0;
+        const totalImages = item.images.length;
+        const $stack = $(".gallery-stack");
+
+        item.images.forEach((img, idx) => {
+            const $img = $(`.gallery-stack-image[data-image="${idx}"]`);
+            const tempImg = new Image();
+
+            tempImg.onload = function () {
+                loadedCount++;
+                $img.attr("src", img.image).css("display", "block");
+                if (loadedCount === totalImages) {
+                    $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                }
+            };
+
+            tempImg.onerror = function () {
+                loadedCount++;
+                $img.attr("src", img.image).css("display", "block");
+                if (loadedCount === totalImages) {
+                    $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                }
+            };
+
+            tempImg.src = img.image;
+        });
+
+        setTimeout(function () {
+            if ($stack.hasClass("loading")) {
+                $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+            }
+        }, 5000);
     } else {
         container.html(`<img id="storyImage" src="${item.image}" alt="${item.title}">`);
     }
