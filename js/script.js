@@ -126,7 +126,31 @@ const JourneyApp = (() => {
         if (item.images?.length) {
             renderGalleryStack(item.images, index, container);
         } else if (item.image) {
-            container.html(`<img id="storyImage" src="${item.image}" alt="${item.title}" loading="lazy">`);
+
+            container.html(`
+                <div class="single-image-wrapper">
+                    <div class="stack-loader">
+                        <div class="loader-ring"></div>
+                    </div>
+
+                    <img id="storyImage"
+                         alt="${item.title}"
+                         loading="lazy"
+                         style="display:none;">
+                </div>
+            `);
+
+            const $img = container.find("#storyImage");
+            const $loader = container.find(".stack-loader");
+
+            const tempImg = new Image();
+
+            tempImg.onload = tempImg.onerror = () => {
+                $img.attr("src", item.image).show();
+                $loader.remove();
+            };
+
+            tempImg.src = item.image;
         }
     }
 
