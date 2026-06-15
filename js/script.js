@@ -66,6 +66,44 @@ $(document).ready(function () {
         previousGallery();
     });
 
+    // Swipe down to close gallery (touch)
+    let galleryTouchStartY = 0;
+
+    $(document).on("touchstart", "#galleryModal", function (e) {
+        galleryTouchStartY = e.changedTouches[0].screenY;
+    });
+
+    $(document).on("touchend", "#galleryModal", function (e) {
+        const galleryTouchEndY = e.changedTouches[0].screenY;
+        const deltaY = galleryTouchEndY - galleryTouchStartY;
+
+        // Swipe down more than 80px to close
+        if (deltaY > 80) {
+            closeGallery();
+        }
+    });
+
+    // Swipe down to close gallery (mouse/desktop)
+    let galleryMouseStartY = 0;
+    let isGalleryMouseDown = false;
+
+    $(document).on("mousedown", "#galleryModal", function (e) {
+        isGalleryMouseDown = true;
+        galleryMouseStartY = e.clientY;
+    });
+
+    $(document).on("mouseup", "#galleryModal", function (e) {
+        if (!isGalleryMouseDown) return;
+
+        const deltaY = e.clientY - galleryMouseStartY;
+
+        if (deltaY > 80) {
+            closeGallery();
+        }
+
+        isGalleryMouseDown = false;
+    });
+
     /* -----------------------------
        LOAD JOURNEY JSON
     ------------------------------*/
@@ -657,23 +695,23 @@ let isGalleryAnimating = false;
 function nextGallery() {
     if (isGalleryAnimating) return;
     if (!currentGalleryImages.length) return;
-    
+
     isGalleryAnimating = true;
     const $img = $("#galleryImage");
-    
+
     // Animate current image out to left
     $img.css({ transform: "translateX(-30px)", opacity: 0 });
-    
+
     setTimeout(() => {
         // Update to next image
         currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
         const newImage = currentGalleryImages[currentGalleryIndex];
-        
+
         // Set new image and start faded in from right
         $img.attr("src", newImage.image);
         $img.css({ transform: "translateX(30px)", opacity: 0 });
         $("#galleryCaption").text(newImage.caption || "");
-        
+
         setTimeout(() => {
             // Animate new image in
             $img.css({ transform: "translateX(0)", opacity: 1 });
@@ -685,23 +723,23 @@ function nextGallery() {
 function previousGallery() {
     if (isGalleryAnimating) return;
     if (!currentGalleryImages.length) return;
-    
+
     isGalleryAnimating = true;
     const $img = $("#galleryImage");
-    
+
     // Animate current image out to right
     $img.css({ transform: "translateX(30px)", opacity: 0 });
-    
+
     setTimeout(() => {
         // Update to previous image
         currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
         const newImage = currentGalleryImages[currentGalleryIndex];
-        
+
         // Set new image and start faded in from left
         $img.attr("src", newImage.image);
         $img.css({ transform: "translateX(-30px)", opacity: 0 });
         $("#galleryCaption").text(newImage.caption || "");
-        
+
         setTimeout(() => {
             // Animate new image in
             $img.css({ transform: "translateX(0)", opacity: 1 });
