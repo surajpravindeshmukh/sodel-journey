@@ -21,8 +21,13 @@ const memoryWordsList = [
 /* -----------------------------
    LOAD JOURNEY DATA - ONLY FROM JSON
 ------------------------------*/
-
 $(document).ready(function () {
+    checkOrientation();
+
+    $(window).on("resize orientationchange", function () {
+        checkOrientation();
+    });
+
     // Generate floating words on home screen
     generateMemoryWords();
 
@@ -637,4 +642,17 @@ function openCaptionModal() {
 function closeCaptionModal() {
     isModalOpen = false;
     $("#captionModal").fadeOut(200);
+}
+
+function checkOrientation() {
+    const isMobile =
+        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    const isLandscape = window.innerWidth > window.innerHeight;
+
+    if (isMobile && isLandscape) {
+        $("#rotateOverlay").css("display", "flex");
+    } else {
+        $("#rotateOverlay").hide();
+    }
 }
