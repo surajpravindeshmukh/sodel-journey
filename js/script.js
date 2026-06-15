@@ -133,14 +133,18 @@ const JourneyApp = (() => {
     // Render multi-image gallery stack
     function renderGalleryStack(images, slideIndex, container) {
         const stackHtml = `
-            <div class="gallery-stack loading" style="opacity:0.6; pointer-events:none;">
+            <div class="gallery-stack loading">
+                <div class="stack-loader">
+                    <div class="loader-ring"></div>
+                </div>
+
                 ${images.map((img, idx) => `
-                    <img src="${img.image}" 
-                         class="gallery-stack-image gallery-stack-${idx + 1}" 
-                         data-slide="${slideIndex}" 
-                         data-image="${idx}"
-                         style="display:none;"
-                         loading="lazy">
+                <img src="${img.image}"
+                    class="gallery-stack-image gallery-stack-${idx + 1}"
+                    data-slide="${slideIndex}"
+                    data-image="${idx}"
+                    style="display:none;"
+                    loading="lazy">
                 `).join('')}
             </div>
         `;
@@ -167,8 +171,9 @@ const JourneyApp = (() => {
 
                 // Show entire stack when all images are loaded
                 if (loadedCount === totalImages) {
+                    $stack.find(".stack-loader").remove();
                     $stack.find(".gallery-stack-image").show();
-                    $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                    $stack.removeClass("loading");
                 }
             };
 
@@ -179,7 +184,9 @@ const JourneyApp = (() => {
         // Fallback timeout
         setTimeout(() => {
             if ($stack.hasClass("loading")) {
-                $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
+                $stack.find(".stack-loader").remove();
+                $stack.find(".gallery-stack-image").show();
+                $stack.removeClass("loading");
             }
         }, LOADING_TIMEOUT);
     }
