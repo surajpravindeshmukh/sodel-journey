@@ -197,6 +197,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv
     #viewer { padding-bottom: 20px; }
 }
 
-@media (max-width: 576px) {
-    #galleryPrev, #galleryNext { display: none; }
+@media (hover: none) {
+    #galleryPrev { display: none; }
+    #galleryNext { display: none; }
 }

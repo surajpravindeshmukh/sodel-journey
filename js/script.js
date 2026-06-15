@@ -157,8 +157,9 @@ const JourneyApp = (() => {
 
             const onLoadComplete = () => {
                 loadedCount++;
-                $img.attr("src", img.image).css("display", "block");
+                $img.attr("src", img.image);
                 if (loadedCount === totalImages) {
+                    $stack.find(".gallery-stack-image").show();
                     $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
                 }
             };
