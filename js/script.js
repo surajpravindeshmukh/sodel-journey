@@ -90,13 +90,9 @@ const JourneyApp = (() => {
             if (current - i >= 0) indices.push(current - i);
         }
 
-        const urls = indices.flatMap(idx => {
-            const item = journey[idx];
-            if (!item) return [];
-            if (item.images) return item.images.map(img => img.image);
-            if (item.image) return [item.image];
-            return [];
-        });
+        const urls = indices.flatMap(idx =>
+            journey[idx]?.images?.map(img => img.image) || []
+        );
 
         preloadImages(urls);
     }
@@ -121,41 +117,13 @@ const JourneyApp = (() => {
 
     // Render image(s) for current slide
     function renderMedia(item, index) {
-        const container = elements.photoContainer;
-
-        if (item.images?.length) {
-            renderGalleryStack(item.images, index, container);
-        } else if (item.image) {
-
-            container.html(`
-                <div class="single-image-wrapper">
-                    <div class="stack-loader">
-                        <div class="loader-ring"></div>
-                    </div>
-
-                    <img id="storyImage"
-                         alt="${item.title}"
-                         loading="lazy"
-                         style="display:none;">
-                </div>
-            `);
-
-            const $img = container.find("#storyImage");
-            const $loader = container.find(".stack-loader");
-
-            const tempImg = new Image();
-
-            tempImg.onload = tempImg.onerror = () => {
-                $img.attr("src", item.image).show();
-                $loader.remove();
-            };
-
-            tempImg.src = item.image;
-        }
+        renderGalleryStack(item.images, index, elements.photoContainer);
     }
 
     // Render multi-image gallery stack
     function renderGalleryStack(images, slideIndex, container) {
+        if (!images?.length) return;
+
         const stackHtml = `
             <div class="gallery-stack loading">
                 <div class="stack-loader">
@@ -417,12 +385,11 @@ const JourneyApp = (() => {
     function buildHomeStack() {
         const stackImages = journey.slice(0, 3).reverse();
         const html = stackImages.map((item, idx) => `
-            <img src="${item.image || item.images?.[0]?.image || `https://picsum.photos/800/1200?random=${idx}`}"
+            <img src="${item.images[0].image}"
                  class="stack stack${idx + 1}"
                  alt="${item.title || 'memory'}"
                  loading="eager">
         `).join('');
-
         $('.photo-stack').html(html);
     }
 
@@ -584,8 +551,7 @@ const JourneyApp = (() => {
         console.log(`Initializing app with ${journey.length} journey items`);
 
         const imageUrls = journey.slice(0, 3).reverse()
-            .flatMap(item => [item.image, ...(item.images?.map(img => img.image) || [])])
-            .filter(Boolean);
+            .flatMap(item => item.images.map(img => img.image));
 
         preloadImages(imageUrls).then(() => {
             elements.pageLoader.fadeOut(300);
