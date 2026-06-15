@@ -152,12 +152,20 @@ const JourneyApp = (() => {
         const $stack = container.find('.gallery-stack');
 
         images.forEach((img, idx) => {
-            const $img = $(`.gallery-stack-image[data-image="${idx}"]`);
+            const $img = $stack.find(`.gallery-stack-image[data-image="${idx}"]`);
             const tempImg = new Image();
 
             const onLoadComplete = () => {
                 loadedCount++;
+
                 $img.attr("src", img.image);
+
+                // Show first image immediately
+                if (idx === 0) {
+                    $img.show();
+                }
+
+                // Show entire stack when all images are loaded
                 if (loadedCount === totalImages) {
                     $stack.find(".gallery-stack-image").show();
                     $stack.css({ opacity: "", pointerEvents: "" }).removeClass("loading");
