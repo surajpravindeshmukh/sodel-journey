@@ -383,25 +383,72 @@ function scrollDotsToActive() {
 function loadSlide(index) {
     if (!journey[index]) return;
 
-    $("#year").text(journey[index].year || "");
-    $("#title").text(journey[index].title || "");
+    const item = journey[index];
 
-    const fullCaption = journey[index].caption || "";
+    $("#year").text(item.year || "");
+    $("#title").text(item.title || "");
+
+    const fullCaption = item.caption || "";
     const shortCaption = getShortCaption(fullCaption, 10);
     $("#caption").text(shortCaption).css("cursor", fullCaption !== shortCaption ? "pointer" : "default");
 
     const container = $("#photoContainer");
-    container.css({ overflow: "hidden" });
 
-    if (journey[index].images && journey[index].images.length > 0) {
-        let stackHtml = `<div class="gallery-stack">`;
-        journey[index].images.forEach((img, idx) => {
-            stackHtml += `<img src="${img.image}" class="gallery-stack-image gallery-stack-${idx + 1}" data-slide="${index}" data-image="${idx}">`;
+    // MULTI IMAGE SLIDE
+    if (item.images && item.images.length > 0) {
+        let stackHtml = `<div class="gallery-stack loading">`;
+
+        item.images.forEach((img, idx) => {
+            stackHtml += `
+                <img
+                    src="${img.image}"
+                    class="gallery-stack-image gallery-stack-${idx + 1}"
+                    data-slide="${index}"
+                    data-image="${idx}"
+                >
+            `;
         });
+
         stackHtml += `</div>`;
         container.html(stackHtml);
-    } else {
-        container.html(`<img id="storyImage" src="${journey[index].image}" alt="${journey[index].title}">`);
+
+        // Track when all images are loaded
+        let loadedCount = 0;
+        const totalImages = item.images.length;
+        const $stack = $(".gallery-stack");
+
+        item.images.forEach((img, idx) => {
+            const $img = $(`.gallery-stack-image[data-image="${idx}"]`);
+
+            if ($img[0].complete && $img[0].naturalWidth !== 0) {
+                loadedCount++;
+                if (loadedCount === totalImages) {
+                    $stack.removeClass("loading");
+                }
+            } else {
+                $img.on("load", function () {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        $stack.removeClass("loading");
+                    }
+                }).on("error", function () {
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        $stack.removeClass("loading");
+                    }
+                });
+            }
+        });
+    }
+    // SINGLE IMAGE SLIDE
+    else {
+        container.html(`
+            <img
+                id="storyImage"
+                src="${item.image}"
+                alt="${item.title}"
+            >
+        `);
     }
 
     createDots();
