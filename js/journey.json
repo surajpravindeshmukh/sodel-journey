@@ -26,19 +26,38 @@
             {
                 "image": "./images/2023/vajramuth1.png",
                 "caption": "2. Finally, the Vajramuth was formed!"
+            },
+            {
+                "image": "./images/2023/vajramuth2.jpg",
+                "caption": "3. The Strategy Team in action!"
             }
         ]
     },
     {
-        "year": "June 2025",
-        "title": "Mutton Nights",
+        "year": "Feb 2024",
+        "title": "Wedding",
+        "caption": "One of the most memorable days of my life became even more special with the presence of my wonderful colleagues. Their heartfelt wishes turned our wedding celebration into an unforgettable occasion.",
+        "images": [
+            {
+                "image": "./images/2024/wedding.jpg",
+                "caption": "In the frame: Pradeep Godghase, Vijay Vanga, Vikram Nayak, Swapnil Sonawane, Ronak Nanavati, Kiran Bavdane, Bhushan Patil, Minakshee Waghmare, Vikas Dhere, Sheetal Pawar, Raju Garande, Suraj Shinde, Rohit Kshirsagar, Ashish Gode, Ajay Shelar, Pratik Gade, Mukul Gala, Sheetal Pawar's Kid, Rohan Dubey, Abhishek Pandey, Amit Upadhyay and Kunal Pitake."
+            }
+        ]
+    },
+    {
+        "year": "2023 - 2025",
+        "title": "Food & Friends",
+        "caption": "",
         "images": [
             {
                 "image": "./images/2025/mutton.jpg",
-                "caption": "1. Mutton Bhakri"
+                "caption": "1. An evening at Vikas's place with the Coffee Group - delicious mutton prepared by Rohit, the bhakris I brought, a few drinks, and endless conversations. Simple moments like these, filled with laughter and good company, are the ones we wish happened more often."
+            },
+            {
+                "image": "./images/2024/snacks.jpg",
+                "caption": "2. Our legendary 4 PM chai break with biscuits, toast, khari, chivda, and whatever snacks anyone brought to share."
             }
-        ],
-        "caption": "An evening at Vikas's place with the Coffee Group - delicious mutton prepared by Rohit, the bhakris I brought, a few drinks, and endless conversations. Simple moments like these, filled with laughter and good company, are the ones we wish happened more often."
+        ]
     },
     {
         "year": "2025 - 2026",
@@ -65,9 +84,17 @@
     },
     {
         "year": "2022 - 2025",
-        "title": "Celebrations",
-        "caption": "Every celebration was a memory in the making. And we made plenty!",
+        "title": "Celebrations / Events",
+        "caption": "Every celebration / event was a memory in the making. And we made plenty!",
         "images": [
+            {
+                "image": "./images/2023/SPL1.jpg",
+                "caption": "Champions of the first-ever SPL edition-proud to be part of the winning team!"
+            },
+            {
+                "image": "./images/2023/SPL.jpg",
+                "caption": "The inaugural SPL brought the entire Sodel onto the field."
+            },
             {
                 "image": "./images/2024/celebrations.jpg",
                 "caption": "Saffron, white & green - we nailed the theme!"
@@ -75,6 +102,10 @@
             {
                 "image": "./images/2024/celebrations1.jpg",
                 "caption": "White squad looking sharp!"
+            },
+            {
+                "image": "./images/2025/teamkerala.jpg",
+                "caption": "From the story of Onam to the winner's podium - Team Kerala made it memorable."
             }
         ]
     },
@@ -89,7 +120,7 @@
             },
             {
                 "image": "./images/2025/birthdays1.jpg",
-                "caption": "2. Vikas Dhere."
+                "caption": "2. Our cake-cutting ritual on the terrace."
             },
             {
                 "image": "./images/2025/birthdays2.jpg",
@@ -97,7 +128,7 @@
             },
             {
                 "image": "./images/2025/birthdays3.jpg",
-                "caption": "4. Bhushan Patil."
+                "caption": "4. Vikas Dhere, urf 'Santoor Papa'."
             },
             {
                 "image": "./images/2025/birthdays4.jpg",
