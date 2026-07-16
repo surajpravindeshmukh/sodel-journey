@@ -108,7 +108,7 @@ const JourneyApp = (() => {
         const fullCaption = item.caption || "";
         const shortCaption = getShortCaption(fullCaption);
         const hasMore = fullCaption !== shortCaption;
-        elements.caption.text(shortCaption).css("cursor", hasMore ? "pointer" : "default");
+        elements.caption.html(formatCaptionWithLinks(shortCaption)).css("cursor", hasMore ? "pointer" : "default");
 
         renderMedia(item, index);
         updateDots();
@@ -333,9 +333,14 @@ const JourneyApp = (() => {
         return words.length <= maxWords ? text : words.slice(0, maxWords).join(" ") + "...";
     }
 
+    function formatCaptionWithLinks(text) {
+        if (!text) return "";
+        return text.replace(/(https?:\/\/[^\s<>"]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
     function openCaptionModal() {
         const fullCaption = journey[current]?.caption || "";
-        elements.fullCaptionText.text(fullCaption);
+        elements.fullCaptionText.html(formatCaptionWithLinks(fullCaption));
         isModalOpen = true;
         elements.captionModal.fadeIn(200);
     }
