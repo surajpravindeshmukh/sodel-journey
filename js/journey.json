@@ -35,8 +35,8 @@
     },
     {
         "year": "Feb 2024",
-        "title": "Wedding",
-        "caption": "One of the most memorable days of my life became even more special with the presence of my wonderful colleagues. Their heartfelt wishes turned our wedding celebration into an unforgettable occasion.",
+        "title": "My Wedding",
+        "caption": "One of the most memorable days of my life became even more special with the presence of my wonderful colleagues. Their heartfelt wishes turned our wedding celebration into an unforgettable occasion. - https://surajpravindeshmukh.github.io/suraj-weds-komal/",
         "images": [
             {
                 "image": "./images/2024/wedding.jpg",
@@ -89,54 +89,47 @@
         "images": [
             {
                 "image": "./images/2023/SPL1.jpg",
-                "caption": "Champions of the first-ever SPL edition-proud to be part of the winning team!"
+                "caption": "1. Champions of the first-ever SPL edition-proud to be part of the winning team!"
             },
             {
                 "image": "./images/2023/SPL.jpg",
-                "caption": "The inaugural SPL brought the entire Sodel onto the field."
+                "caption": "2. The inaugural SPL brought the entire Sodel onto the field."
             },
             {
                 "image": "./images/2024/celebrations.jpg",
-                "caption": "Saffron, white & green - we nailed the theme!"
+                "caption": "3. Saffron, white & green - we nailed the theme!"
             },
             {
                 "image": "./images/2024/celebrations1.jpg",
-                "caption": "White squad looking sharp!"
+                "caption": "4. White squad looking sharp!"
             },
             {
                 "image": "./images/2025/teamkerala.jpg",
-                "caption": "From the story of Onam to the winner's podium - Team Kerala made it memorable."
-            }
-        ]
-    },
-    {
-        "year": "2022 - 2025",
-        "title": "Birthdays",
-        "caption": "Birthdays on the terrace became our ritual from 2022 to 2025. But as the global economic crisis hit at the end of 2025, we had to end this beautiful tradition. Gone but never forgotten.",
-        "images": [
+                "caption": "5. From the story of Onam to the winner's podium - Team Kerala made it memorable."
+            },
             {
                 "image": "./images/2025/birthdays.jpg",
-                "caption": "1. The cake brought by our YPP team every year, without fail. The one for me, Raju and Swapnil will be missed."
+                "caption": "6. The cake brought by our YPP team every year, without fail. The one for me, Raju and Swapnil will be missed."
             },
             {
                 "image": "./images/2025/birthdays1.jpg",
-                "caption": "2. Our cake-cutting ritual on the terrace."
+                "caption": "7. Our cake-cutting ritual on the terrace."
             },
             {
                 "image": "./images/2025/birthdays2.jpg",
-                "caption": "3. Rohan Dubey, Kiran Bavdane."
+                "caption": "8. Rohan Dubey, Kiran Bavdane."
             },
             {
                 "image": "./images/2025/birthdays3.jpg",
-                "caption": "4. Vikas Dhere, urf 'Santoor Papa'."
+                "caption": "9. Vikas Dhere, urf 'Santoor Papa'."
             },
             {
                 "image": "./images/2025/birthdays4.jpg",
-                "caption": "5. Chandan Kolhe."
+                "caption": "10. Chandan Kolhe."
             },
             {
                 "image": "./images/2025/birthdays5.jpg",
-                "caption": "6. Jitendra Barai."
+                "caption": "11. Jitendra Barai."
             }
         ]
     }
