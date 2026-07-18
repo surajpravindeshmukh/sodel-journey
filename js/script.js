@@ -404,6 +404,7 @@ const JourneyApp = (() => {
 
         elements.home.fadeOut(300, () => {
             elements.viewer.css("display", "flex").hide().fadeIn(280);
+            // generateMemoryWords();
             loadSlideContent(current);
         });
     }
