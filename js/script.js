@@ -25,14 +25,14 @@ const JourneyApp = (() => {
 
     // Memory words
     const MEMORY_WORDS = [
-        "KB शेठ", "Samosa Scam", "Kokan Paglu", "Ratnagiri", "वज्रमूठ", "शेव भाजी", "'जय महाराष्ट्र' वडापाव!", "आत्या",
-        "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "Ganesh Naik", "Navi Mumbai Paglu",
-        "Bisleri Pani Puri", "Nexon", "Abdul", "Villa", "मनपसंद", "शिळफाटा",
+        "KB शेठ", "Samosa Scam", "Kokan Paglu", "Ratnagiri", "वज्रमूठ", "'जय महाराष्ट्र' वडापाव!", "आत्या",
+        "पश्चिम महाराष्ट्र", "Tapola", "शिंदे साहेब", "G Naik", "Navi Mumbai Paglu", "Baazigar",
+        "Bisleri Pani Puri", "Nexon", "Abdul", "Villa", "मनपसंद", "शिळफाटा", "Land Cruiser",
         "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना", "संतूर पप्पा", "DMart", "Lunch Group",
-        "Birthdays on Terrace", "Old Monk", "Paan Flavour", "वेड्या मना",
-        "उपवास", "साबुदाणा", "हापूस आंबा २२₹", "Chicken Thali", "4Y 3M", "मटण",
+        "Terrace Birthdays", "वेड्या मना", "Old Monk", "Hectic/Septic", "IT Cell",
+        "उपवास", "हापूस आंबा २२₹", "Chicken Thali", "4Y 3M", "मेंढा", "मटण", "Pratik (Paper)",
         "Coffee Group", "Snacks", "बैल", "साचा", "IRCTC paglu", "Shegaon Kachori",
-        "Nashik", "Kurla", "Guna", "Triumph", "Yamaha", "अंधभक्त", "साप", "Dahi",
+        "Nashik", "Kurla", "Guna", "Triumph", "Yamaha", "अंधभक्त", "नाग पंचमी", "मोहताज",
         "FZ - 35000₹", "Appsec - Ek Tool", "Muft Ka Chandan", "CNG Ninja", "Neele Neele Ambar Par"
     ];
 
