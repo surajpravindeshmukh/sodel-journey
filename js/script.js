@@ -30,10 +30,10 @@ const JourneyApp = (() => {
         "Bisleri Pani Puri", "Nexon", "Abdul", "Villa", "मनपसंद", "शिळफाटा", "Land Cruiser",
         "पंतनगर पोलिस स्टेशन", "इतना मारूंगा ना", "संतूर पप्पा", "DMart", "Lunch Group",
         "Terrace Birthdays", "वेड्या मना", "Old Monk", "Hectic/Septic", "IT Cell",
-        "उपवास", "हापूस आंबा २२₹", "Chicken Thali", "4Y 3M", "मेंढा", "मटण", "Pratik (Paper)",
+        "उपवास", "हापूस आंबा २२₹", "Chicken Thali", "4Y 3M", "मेंढा", "मटण", "AI - में अदरक हु रे",
         "Coffee Group", "Snacks", "बैल", "साचा", "IRCTC paglu", "Shegaon Kachori",
         "Nashik", "Kurla", "Guna", "Triumph", "Yamaha", "अंधभक्त", "नाग पंचमी", "मोहताज",
-        "FZ - 35000₹", "Appsec - Ek Tool", "Muft Ka Chandan", "CNG Ninja", "Neele Neele Ambar Par"
+        "FZ - 35000₹", "Appsec - Ek Tool", "Muft Ka Chandan", "CNG Ninja", "Neele Neele Ambar Par, पात्रता"
     ];
 
     // DOM Elements cache
